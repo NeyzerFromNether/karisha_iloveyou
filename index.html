@@ -12,8 +12,8 @@
     --paper:#fbf4e6;
     --paper2:#f5ead3;
     --ink:#3b3a36;
-    --pen:#c0392b;      /* красная ручка */
-    --blue:#2e4a7d;     /* синяя ручка */
+    --pen:#c0392b;      
+    --blue:#2e4a7d;     
     --pink:#e2557b;
     --tape:rgba(232,217,160,.75);
   }
@@ -32,7 +32,7 @@
   }
   .wrap{max-width:640px;margin:0 auto;padding:0 20px 120px}
 
-  /* ============ шапка ============ */
+
   header{padding:70px 0 40px;text-align:center}
   .small-note{
     font-family:'Inter',sans-serif;
@@ -60,7 +60,7 @@
     color:var(--blue);
   }
 
-  /* ============ полароид ============ */
+
   .photos{
     display:flex;flex-wrap:wrap;justify-content:center;gap:34px;
     margin:60px 0 20px;
@@ -81,7 +81,6 @@
     text-align:center;margin-top:12px;
     font-size:22px;color:#6b655a;
   }
-  /* скотч */
   .tape{
     position:absolute;width:90px;height:26px;
     background:var(--tape);
@@ -91,7 +90,7 @@
   .tape.t2{top:-13px;right:-18px;transform:rotate(22deg)}
   .tape.t3{top:-14px;left:50%;margin-left:-45px;transform:rotate(2deg)}
 
-  /* ============ письмо ============ */
+
   .letter{
     background:#fffdf6;
     margin:80px 0;
@@ -100,7 +99,7 @@
     transform:rotate(-.6deg);
     position:relative;
   }
-  .letter:before{ /* лёгкие линии тетради */
+  .letter:before{ 
     content:'';position:absolute;inset:0;
     background:repeating-linear-gradient(transparent,transparent 43px,#e8e2d2 44px);
     pointer-events:none;opacity:.6;
@@ -111,7 +110,6 @@
     font-size:34px;color:var(--pen);margin-top:8px;
   }
 
-  /* ============ 5 конвертов ============ */
   h2{
     font-family:'Marck Script',cursive;font-weight:400;
     font-size:40px;text-align:center;margin:90px 0 8px;
@@ -154,7 +152,6 @@
   .env.open .seal{display:none}
   .env.open{background:#fffdf6}
 
-  /* ============ записка ============ */
   .bob{
     text-align:center;margin:100px 0 0;
   }
@@ -162,7 +159,6 @@
   .bob .bobcap{margin-top:30px;font-size:26px;color:var(--blue)}
   .paws{margin:26px auto 0;display:block}
 
-  /* ============ подвал ============ */
   footer{
     text-align:center;margin-top:90px;
     color:#9a9184;font-size:22px;
@@ -175,7 +171,6 @@
   }
   .heart-btn:active{transform:scale(1.4)}
 
-  /* ============ рисующиеся каракули ============ */
   .doodle path{
     stroke-dasharray:600;stroke-dashoffset:600;
   }
@@ -193,11 +188,11 @@
     to{opacity:0;transform:translateY(-90px) scale(1.5)}
   }
 
-  /* фото-заглушки, пока не вставил свои */
+  
   .ph{display:flex;align-items:center;justify-content:center;
     color:#c4b998;font-size:18px;text-align:center;padding:8px}
 
-  /* видео */
+
   .video-wrap{margin-top:70px;text-align:center}
   .video-frame{
     background:#fff;padding:12px 12px 46px;
@@ -217,13 +212,13 @@
 <body>
 <div class="wrap">
 
-  <!-- ================= ШАПКА ================= -->
+
   <header>
     <div class="small-note">
       для любименькой моей девушки солнышка моего
     </div>
     <h1>
-      <!-- ИМЯ: напиши её имя -->
+
       привета!
       <svg class="underline doodle" viewBox="0 0 300 24" fill="none">
         <path d="M4 14 C 60 4, 120 22, 170 10 S 280 6, 296 15" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
@@ -232,9 +227,8 @@
     <div class="sub">дарова еще раз чо поехали  </div>
   </header>
 
-  <!-- ================= ФОТО ================= -->
   <div class="photos">
-    <!-- подпись каждого фото: ищи <div class="cap"> и меняй текст между скобками -->
+
     <div class="polaroid"><span class="tape t3"></span>
       <img src="photo1.png" alt="">
       <div class="cap">мы делаем фоточку<br>перед уходом</div>
@@ -269,7 +263,7 @@
     </div>
   </div>
 
-  <!-- ================= ВИДЕО ================= -->
+
   <div class="video-wrap">
     <div class="video-frame">
       <span class="tape t1"></span><span class="tape t2"></span>
