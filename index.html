@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>для тебя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marck+Script&family=Caveat:wght@400;600&family=Inter:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#fbf4e6;
+    --paper2:#f5ead3;
+    --ink:#3b3a36;
+    --pen:#c0392b;      /* красная ручка */
+    --blue:#2e4a7d;     /* синяя ручка */
+    --pink:#e2557b;
+    --tape:rgba(232,217,160,.75);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Caveat',cursive;
+    font-size:22px;
+    line-height:1.55;
+    overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(255,255,255,.5), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(226,85,123,.05), transparent 50%);
+  }
+  .wrap{max-width:640px;margin:0 auto;padding:0 20px 120px}
+
+  /* ============ шапка ============ */
+  header{padding:70px 0 40px;text-align:center}
+  .small-note{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    letter-spacing:.5px;
+    color:#9a9184;
+    margin-bottom:26px;
+  }
+  h1{
+    font-family:'Marck Script',cursive;
+    font-size:clamp(44px,10vw,64px);
+    font-weight:400;
+    color:var(--ink);
+    line-height:1.1;
+    position:relative;
+    display:inline-block;
+  }
+  h1 .underline{
+    position:absolute;left:-6%;bottom:-14px;width:112%;height:22px;
+    overflow:visible;
+  }
+  .sub{
+    margin-top:34px;
+    font-size:26px;
+    color:var(--blue);
+  }
+
+  /* ============ полароид ============ */
+  .photos{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:34px;
+    margin:60px 0 20px;
+  }
+  .polaroid{
+    background:#fff;
+    padding:12px 12px 46px;
+    box-shadow:0 6px 18px rgba(80,60,20,.16);
+    position:relative;
+    width:230px;
+    transition:transform .35s ease;
+  }
+  .polaroid:hover{transform:rotate(0deg) scale(1.03)!important}
+  .polaroid:nth-child(1){transform:rotate(-3deg)}
+  .polaroid:nth-child(2){transform:rotate(2.4deg)}
+  .polaroid img{width:100%;height:230px;object-fit:cover;display:block;background:var(--paper2)}
+  .polaroid .cap{
+    text-align:center;margin-top:12px;
+    font-size:22px;color:#6b655a;
+  }
+  /* скотч */
+  .tape{
+    position:absolute;width:90px;height:26px;
+    background:var(--tape);
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .tape.t1{top:-13px;left:-18px;transform:rotate(-24deg)}
+  .tape.t2{top:-13px;right:-18px;transform:rotate(22deg)}
+  .tape.t3{top:-14px;left:50%;margin-left:-45px;transform:rotate(2deg)}
+
+  /* ============ письмо ============ */
+  .letter{
+    background:#fffdf6;
+    margin:80px 0;
+    padding:46px 34px 54px;
+    box-shadow:0 4px 16px rgba(80,60,20,.12);
+    transform:rotate(-.6deg);
+    position:relative;
+  }
+  .letter:before{ /* лёгкие линии тетради */
+    content:'';position:absolute;inset:0;
+    background:repeating-linear-gradient(transparent,transparent 43px,#e8e2d2 44px);
+    pointer-events:none;opacity:.6;
+  }
+  .letter p{margin-bottom:18px;position:relative}
+  .letter .sign{
+    text-align:right;font-family:'Marck Script',cursive;
+    font-size:34px;color:var(--pen);margin-top:8px;
+  }
+
+  /* ============ 5 конвертов ============ */
+  h2{
+    font-family:'Marck Script',cursive;font-weight:400;
+    font-size:40px;text-align:center;margin:90px 0 8px;
+  }
+  .hint{
+    text-align:center;color:#9a9184;
+    font-family:'Inter',sans-serif;font-size:13px;margin-bottom:38px;
+  }
+  .env{
+    background:var(--paper2);
+    border:1.5px solid #ddd0ae;
+    margin-bottom:20px;padding:20px 22px;
+    cursor:pointer;
+    position:relative;
+    transition:transform .2s;
+    box-shadow:0 3px 8px rgba(80,60,20,.08);
+  }
+  .env:nth-child(odd){transform:rotate(.4deg)}
+  .env:nth-child(even){transform:rotate(-.5deg)}
+  .env:hover{transform:rotate(0) translateY(-2px)}
+  .env .row{display:flex;align-items:center;gap:14px}
+  .env .num{
+    font-family:'Marck Script',cursive;font-size:30px;color:var(--pen);
+    min-width:34px;
+  }
+  .env .title{font-size:25px}
+  .env .seal{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    font-family:'Inter',sans-serif;font-size:11px;color:#b3a886;
+    letter-spacing:1px;
+  }
+  .env .note{
+    max-height:0;overflow:hidden;
+    transition:max-height .6s ease, margin .5s ease;
+    font-size:23px;color:#4a463d;
+  }
+  .env .note p{margin-bottom:14px}
+  .env .note p:last-child{margin-bottom:0}
+  .env.open .note{max-height:900px;margin-top:16px}
+  .env.open .seal{display:none}
+  .env.open{background:#fffdf6}
+
+  /* ============ записка ============ */
+  .bob{
+    text-align:center;margin:100px 0 0;
+  }
+  .bob .polaroid{display:inline-block;transform:rotate(3deg)}
+  .bob .bobcap{margin-top:30px;font-size:26px;color:var(--blue)}
+  .paws{margin:26px auto 0;display:block}
+
+  /* ============ подвал ============ */
+  footer{
+    text-align:center;margin-top:90px;
+    color:#9a9184;font-size:22px;
+  }
+  .heart-btn{
+    background:none;border:none;cursor:pointer;
+    font-size:30px;color:var(--pink);
+    margin-top:16px;
+    transition:transform .15s;
+  }
+  .heart-btn:active{transform:scale(1.4)}
+
+  /* ============ рисующиеся каракули ============ */
+  .doodle path{
+    stroke-dasharray:600;stroke-dashoffset:600;
+  }
+  .doodle.drawn path{
+    animation:draw 1.4s ease forwards;
+  }
+  @keyframes draw{to{stroke-dashoffset:0}}
+
+  .float-heart{
+    position:fixed;pointer-events:none;font-size:18px;
+    animation:floatUp 1.6s ease forwards;z-index:99;
+  }
+  @keyframes floatUp{
+    from{opacity:1;transform:translateY(0) scale(1)}
+    to{opacity:0;transform:translateY(-90px) scale(1.5)}
+  }
+
+  /* фото-заглушки, пока не вставил свои */
+  .ph{display:flex;align-items:center;justify-content:center;
+    color:#c4b998;font-size:18px;text-align:center;padding:8px}
+
+  /* видео */
+  .video-wrap{margin-top:70px;text-align:center}
+  .video-frame{
+    background:#fff;padding:12px 12px 46px;
+    box-shadow:0 6px 18px rgba(80,60,20,.16);
+    display:inline-block;position:relative;transform:rotate(-1.5deg);
+    max-width:100%;
+  }
+  .video-frame video{max-width:100%;width:420px;display:block;background:#111}
+  .video-frame .cap{text-align:center;margin-top:12px;font-size:22px;color:#6b655a}
+  .video-link{
+    display:inline-block;margin-top:22px;
+    font-family:'Inter',sans-serif;font-size:12px;color:#b3a886;
+    text-decoration:none;border-bottom:1px dashed #d5c9a4;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= ШАПКА ================= -->
+  <header>
+    <div class="small-note">
+      для любименькой моей девушки солнышка моего
+    </div>
+    <h1>
+      <!-- ИМЯ: напиши её имя -->
+      привета!
+      <svg class="underline doodle" viewBox="0 0 300 24" fill="none">
+        <path d="M4 14 C 60 4, 120 22, 170 10 S 280 6, 296 15" stroke="#c0392b" stroke-width="3" stroke-linecap="round"/>
+      </svg>
+    </h1>
+    <div class="sub">дарова еще раз чо поехали  </div>
+  </header>
+
+  <!-- ================= ФОТО ================= -->
+  <div class="photos">
+    <!-- подпись каждого фото: ищи <div class="cap"> и меняй текст между скобками -->
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo1.png" alt="">
+      <div class="cap">мы делаем фоточку<br>перед уходом</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo2.png" alt="">
+      <div class="cap">мы делаем фоточку<br>перед уходом 2) </div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo3.png" alt="">
+      <div class="cap">я скучаю по этому вайбу снова хочу</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span> 
+      <img src="photo4.jpg" alt="">
+      <div class="cap">(((<br>вспомнив эту фотку захотелось снова к тебе</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo5.jpg" alt="">
+      <div class="cap">обнимаемся<br>и делаем вид что по делу</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo6.jpg" alt="">
+      <div class="cap">макияж) я помню как ты умилялась с меня<br> и ты потом кучу раз скидывала эту фотку</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo7.jpg" alt="">
+      <div class="cap">наша первая зима бебе</div>
+    </div>
+    <div class="polaroid"><span class="tape t3"></span>
+      <img src="photo8.png" alt="">
+      <div class="cap">мы в анимешке</div>
+    </div>
+  </div>
+
+  <!-- ================= ВИДЕО ================= -->
+  <div class="video-wrap">
+    <div class="video-frame">
+      <span class="tape t1"></span><span class="tape t2"></span>
+      <video src="video.MOV" controls playsinline preload="metadata"></video>
+      <div class="cap">ты у мя в гостях и лиля</div>
+    </div>
+    <a class="video-link" href="video.MOV" download></a>
+  </div>
+
+  <div class="video-wrap">
+    <div class="video-frame">
+      <span class="tape t1"></span><span class="tape t2"></span>
+      <video src="video2.MOV" controls playsinline preload="metadata"></video>
+      <div class="cap">я прослезился когда вставлял это видео(СНОВАА)</div>
+    </div>
+    <a class="video-link" href="video2.MOV" download>если не открывается - сохрани к себе</a>
+  </div>
+
+  <div class="letter">
+    <p>сидел на работе вот тебя вспомнил решил парочку наших фоток откопать и немножко видео и собрать их пока что сюда чтобы проса напомнить тебе что я тебя люблю вот хочется как-то напомнить да какт проявить внимание но я не знаю как эта сделать кроме как стандартных сообщений поэтому решил что нада сделать чтото что я умею делать намана а эта сайтики и красива писать</p>
+    <p>кароч тут 5 записочек тама каждая для конкретного случая но если захоч можешь пряма сейчас все все все открыть и прочитать я писал от всево сердцаа</p>
+    <p>ваще тама нет ничего такого необычного но тама мои слова(</p>
+    <p class="sign">илюшаа</p>
+  </div>
+
+  <h2>пять конвертов</h2>
+  <div class="hint">давай аткрывай быстрее меня нафик</div>
+
+  <div class="env" onclick="this.classList.toggle('open')">
+    <div class="row"><span class="num">1</span><span class="title">когда тебе грусна</span></div>
+    <span class="seal">вскрыть</span>
+    <div class="note">
+      <p>я люблю тебя просто напишу это тут прямо чтоб ты прочитала не важно в какой момент ты обязана знать что я тебя люблю!</p>
+      <p>не за что-то конкретное а за то как ты рядом со мной не пытаешься быть удобной и правильной и за то что мне с тобой спокойнее чем я умел ожидать от кого-то</p>
+      <p>сейчас может быть плохо это не навсегда и я пока не знаю что сказать чтобы стало легко но я никуда не исчезну!!</p>
+      <p>всегда когда смотрю на тебя понимаю что ты моя девушка и радуюсь внутри себя как ребенок)) (наверн лучше было бы сказать тот маленький илюша прыгает от счастья когда понимает что ты моя девушка И ВЗРОСЛЫЙ ИЛЮША ТОЖЕ!)</p>
+    </div>
+  </div>
+
+  <div class="env" onclick="this.classList.toggle('open')">
+    <div class="row"><span class="num">2</span><span class="title">когда захочется погулять</span></div>
+    <span class="seal">вскрыть</span>
+    <div class="note">
+      <p>люблю тебя и мне все равно куда гулять и когда хоть вокруг дома хоть в другую страну главное что ты рядом со мной(</p>
+      <p>ты может иногда думаешь(надеюсь нет) что я устал от тебя или что тебе надоело нет мне с тобой проще чем с кемлибо на свете и я не играю при тебе роль  это тоже изза тебя</p>
+      <p>когда выйдешь просто подыши нормально воздух штука полезная хоть и кажется что нафик нада(ну эта если захоч погулять типа пряма сразу или может вдруг со мной захоч погулять то проса позвони я мигом приеду к тибе и мы погуляем!)</p>
+    </div>
+  </div>
+
+  <div class="env" onclick="this.classList.toggle('open')">
+    <div class="row"><span class="num">3</span><span class="title">когда скучно по мне</span></div>
+    <span class="seal">вскрыть</span>
+    <div class="note">
+      <p>я тоже скучаю( почти всегда блин даже когда мы весь день переписываемся по делу и оба заняты</p>
+      <p>и отдельно кариша спасибо что говоришь мне "люблю" просто так без повода типа не все так умеют а ты можешь в любой момент и я каждый раз это замечаю и молча радуюсь как дурак(КАК ТЫ ЛЮБИШЬ ГОВОРИТЬ ДУРАК НО МОЙ)</p>
+      <p>пиши мне хоть в три ночи типа я серьезна блин я рад когда ты пишешь мне ваще по любому поводу</p>
+    </div>
+  </div>
+
+
+  <div class="env" onclick="this.classList.toggle('open')">
+    <div class="row"><span class="num">4</span><span class="title">когда хочется смеяться</span></div>
+    <span class="seal">вскрыть</span>
+    <div class="note">
+      <p>люблю тебя когда ты смешная и когда грусная просто тогда тихонечка держу и обнимаю крепче</p>
+      <p>а еще я до сих пор не умею смотреть на тебя когда ты смеешься сразу сам начинаю улыбаться как дурачок</p>
+      <p>мне не нужна веселая и ухоженная версия тебя я жду любую в старых джинсах уставшую и без настроения тоже жду!(настроение исправим не праблема)</p>
+    </div>
+  </div>
+
+  <div class="env" onclick="this.classList.toggle('open')">
+    <div class="row"><span class="num">5</span><span class="title">открывать когда надоест быть грустной</span></div>
+    <span class="seal">вскрыть</span>
+    <div class="note">
+      <p>это последний конверт наверна тут самое главное</p>
+      <p>я тебя люблю не забочусь не "мне приятно" а вот блин именна люблю и мне от тебя ничего не нужно в ответ кроме того чтобы ты была са мной</p>
+      <p>ты можешь быть грустной уставшей молчаливой некрасивой по своему мнению тип я все равно выберу тебя каждый раз заново</p>
+      <p>мы ещё в китай поедем, будем вместе чемоданы собирать))))</p>
+    </div>
+  </div>
+
+
+
+  <footer>
+    <div>еще 1 раз скажу Я ТЕБЯ ЛЮБЛЮ!</div>
+    <button class="heart-btn" onclick="heart(event)">♥</button>
+  </footer>
+
+</div>
+
+<script>
+  // каракули «дорисовываются» когда до них доходишь
+  const obs = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('drawn'); } });
+  },{threshold:.6});
+  document.querySelectorAll('.doodle').forEach(d=>obs.observe(d));
+
+  // сердечко всплывает
+  function heart(ev){
+    const h=document.createElement('div');
+    h.className='float-heart';h.textContent='♥';
+    h.style.left=ev.clientX+'px';h.style.top=ev.clientY+'px';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1600);
+  }
+</script>
+</body>
+</html>
